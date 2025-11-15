@@ -23,7 +23,7 @@ int getHeight(Node* root, bool& balanced) {
     int leftH = getHeight(root->left, leftBalanced);
     int rightH = getHeight(root->right, rightBalanced);
 
-    // If either subtree is already unbalanced, bubble it up
+
     if (!leftBalanced || !rightBalanced) {
         balanced = false;
         return 0;
@@ -34,8 +34,7 @@ int getHeight(Node* root, bool& balanced) {
         balanced = false;
     }
 
-    // Otherwise, one child may be missing – still fine
-    // as long as the existing subtree is balanced.
+
 
     return 1 + max(leftH, rightH);
 }

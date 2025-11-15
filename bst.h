@@ -387,9 +387,7 @@ BinarySearchTree<Key, Value>::begin() const
     return begin;
 }
 
-/**
-* Returns an iterator whose value means INVALID
-*/
+
 template<class Key, class Value>
 typename BinarySearchTree<Key, Value>::iterator
 BinarySearchTree<Key, Value>::end() const
@@ -431,9 +429,7 @@ Value const & BinarySearchTree<Key, Value>::operator[](const Key& key) const
     return curr->getValue();
 }
 
-/**
-* An insert method to insert into a Binary Search Tree.
-* The tree will not remain balanced when inserting.
+/*
 * Recall: If key is already in the tree, you should 
 * overwrite the current value with the updated value.
 */
@@ -480,13 +476,13 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
     Node<Key,Value>* node = internalFind(key);
     if(node == NULL) return;
 
-    // If it has 2 children, swap with predecessor
+
     if(node->getLeft() != NULL && node->getRight() != NULL) {
         Node<Key,Value>* pred = predecessor(node);
         nodeSwap(node, pred);
     }
 
-    // Now node has 0 or 1 child
+
     Node<Key,Value>* child =
         (node->getLeft() != NULL ? node->getLeft() : node->getRight());
 
@@ -495,7 +491,7 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
     }
 
     if(node->getParent() == NULL) {
-        // node is root
+
         root_ = child;
     }
     else if(node == node->getParent()->getLeft()) {
@@ -508,23 +504,21 @@ void BinarySearchTree<Key, Value>::remove(const Key& key)
     delete node;
 }
 
-/**
-* Static helper: predecessor in BST (in-order)
-*/
+
 template<class Key, class Value>
 Node<Key, Value>*
 BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
 {
     if(current == NULL) return NULL;
 
-    // Case 1: left subtree → rightmost node
+
     if(current->getLeft() != NULL) {
         Node<Key,Value>* temp = current->getLeft();
         while(temp->getRight() != NULL) temp = temp->getRight();
         return temp;
     }
 
-    // Case 2: go up until we come from the right
+
     Node<Key,Value>* parent = current->getParent();
     while(parent != NULL && current == parent->getLeft()) {
         current = parent;
@@ -533,23 +527,21 @@ BinarySearchTree<Key, Value>::predecessor(Node<Key, Value>* current)
     return parent;
 }
 
-/**
-* Static helper: successor in BST (in-order)
-*/
+
 template<class Key, class Value>
 Node<Key, Value>*
 BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current)
 {
     if(current == NULL) return NULL;
 
-    // Case 1: right subtree → leftmost node of right subtree
+    
     if(current->getRight() != NULL) {
         Node<Key,Value>* temp = current->getRight();
         while(temp->getLeft() != NULL) temp = temp->getLeft();
         return temp;
     }
 
-    // Case 2: go up until we come from the left
+    
     Node<Key,Value>* parent = current->getParent();
     while(parent != NULL && current == parent->getRight()) {
         current = parent;
@@ -558,10 +550,7 @@ BinarySearchTree<Key, Value>::successor(Node<Key, Value>* current)
     return parent;
 }
 
-/**
-* A method to remove all contents of the tree and
-* reset the values in the tree for use again.
-*/
+
 template<typename Key, typename Value>
 void BinarySearchTree<Key, Value>::clear()
 {
@@ -578,9 +567,7 @@ void BinarySearchTree<Key, Value>::clearHelper(Node<Key,Value>* node)
     delete node;
 }
 
-/**
-* A helper function to find the smallest node in the tree.
-*/
+
 template<typename Key, typename Value>
 Node<Key, Value>*
 BinarySearchTree<Key, Value>::getSmallestNode() const
@@ -591,11 +578,7 @@ BinarySearchTree<Key, Value>::getSmallestNode() const
     return curr;
 }
 
-/**
-* Helper function to find a node with given key, k and
-* return a pointer to it or NULL if no item with that key
-* exists
-*/
+
 template<typename Key, typename Value>
 Node<Key, Value>* BinarySearchTree<Key, Value>::internalFind(const Key& key) const
 {
@@ -608,11 +591,7 @@ Node<Key, Value>* BinarySearchTree<Key, Value>::internalFind(const Key& key) con
     return NULL;
 }
 
-/**
- * Return true iff the BST is balanced.
- * A tree is AVL-balanced if for every node,
- * |height(left) - height(right)| <= 1.
- */
+
 template<typename Key, typename Value>
 int height(Node<Key,Value>* node)
 {
